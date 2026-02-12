@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Valentine?</title>
+    <style>
+        :root {
+            --peony-pink: #F1A7B4;
+            --soft-pink: #FCE6E9;
+            --deep-rose: #D84B61;
+        }
+
+        body {
+            background-color: var(--soft-pink);
+            font-family: 'Arial Rounded MT Bold', 'Helvetica', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden; /* Prevents scrollbars if the button jumps near edges */
+            text-align: center;
+        }
+
+        #container {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(241, 167, 180, 0.3);
+            z-index: 10;
+        }
+
+        h1 {
+            color: var(--deep-rose);
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        #gif-container img {
+            width: 250px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        #yesBtn {
+            background-color: var(--peony-pink);
+            color: white;
+        }
+
+        #yesBtn:hover {
+            transform: scale(1.1);
+            background-color: var(--deep-rose);
+        }
+
+        #noBtn {
+            background-color: #eee;
+            color: #777;
+            position: absolute; /* Vital for the jumping logic */
+        }
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <div id="gif-container">
+            <img id="mainGif" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHp4Z3R5YmcxaXN4Z3R5YmcxaXN4Z3R5YmcxaXN4Z3R5YmcmaXDirectly/cLS1cfxvGOPVpf9g3y/giphy.gif" alt="Pleading Puppy">
+        </div>
+        <h1 id="questionText">Will you be my Valentine?</h1>
+        
+        <div class="buttons">
+            <button id="yesBtn" onclick="celebrate()">Yes!</button>
+            <button id="noBtn" onmouseover="moveButton()" tabindex="-1">No</button>
+        </div>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        const mainGif = document.getElementById('mainGif');
+        const questionText = document.getElementById('questionText');
+
+        // Logic to move the 'No' button
+        function moveButton() {
+            // Get viewport dimensions
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            
+            noBtn.style.left = `${x}px`;
+            noBtn.style.top = `${y}px`;
+        }
+
+        // Logic for when she clicks Yes
+        function celebrate() {
+            // Change the GIF to a celebratory one
+            mainGif.src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHp4Z3R5YmcxaXN4Z3R5YmcxaXN4Z3R5YmcxaXN4Z3R5YmcmaXDirectly/l41lTfux6N9Gk8Vtm/giphy.gif";
+            
+            // Change the text
+            questionText.innerHTML = "Yay! See you on the 14th! ❤️";
+            
+            // Hide the No button and style the Yes button
+            noBtn.style.display = 'none';
+            yesBtn.style.transform = "scale(1.5)";
+            yesBtn.innerHTML = "I Knew It! 🥰";
+        }
+    </script>
+
+</body>
+</html>
