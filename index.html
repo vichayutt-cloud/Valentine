@@ -42,6 +42,8 @@
 
         #gif-container img {
             width: 100%;
+            height: 200px;
+            object-fit: contain;
             border-radius: 15px;
             margin-bottom: 20px;
         }
@@ -51,7 +53,7 @@
             justify-content: center;
             gap: 20px;
             height: 50px;
-            position: relative; /* Container for button positioning */
+            position: relative;
         }
 
         button {
@@ -67,16 +69,16 @@
         #yesBtn {
             background-color: var(--peony-pink);
             color: white;
+            position: relative;
+            z-index: 10;
         }
 
-        /* The No Button - Now visible by default */
         #noBtn {
             background-color: #f0f0f0;
             color: #888;
-            position: absolute; 
-            left: 170px; /* Moves it to the right of the Yes button */
-            top: 0;
-            z-index: 100;
+            position: absolute;
+            left: 175px; /* Positioned to the right of Yes */
+            z-index: 5;
         }
     </style>
 </head>
@@ -84,7 +86,7 @@
 
     <div id="container">
         <div id="gif-container">
-            <img id="mainGif" src="https://i.pinimg.com/originals/9b/dc/c6/9bdcc6006f0694868972886f6f966023.gif" alt="Please">
+            <img id="mainGif" src="https://media.tenor.com/cyGL_Y6OT88AAAAi/cute-sad.gif" alt="Please">
         </div>
         <h1 id="questionText">Will you be my Valentine?</h1>
         
@@ -101,26 +103,25 @@
         const mainGif = document.getElementById('mainGif');
         const questionText = document.getElementById('questionText');
 
-        // This makes the button jump when hovered
         function moveButton() {
-            // Screen dimensions minus button size
-            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - 20);
-            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 20);
+            // Jumps the button to a random spot on the whole screen
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
             
-            noBtn.style.position = 'fixed'; // Switches to fixed so it can move anywhere on screen
+            noBtn.style.position = 'fixed'; 
             noBtn.style.left = `${x}px`;
             noBtn.style.top = `${y}px`;
         }
 
         function celebrate() {
-            // Change GIF to celebration
-            mainGif.src = "https://i.pinimg.com/originals/e1/9b/3b/e19b3b9b4786443689f417e9238356f9.gif";
-            questionText.innerHTML = "Yay! Happy Valentine's Day! ❤️";
+            // Celebration GIF from Tenor
+            mainGif.src = "https://media.tenor.com/9n_l95xW4vAAAAAi/love-joy.gif";
+            questionText.innerHTML = "Yay! See you on the 14th! ❤️";
             
-            // Hide the elusive No button
             noBtn.style.display = 'none';
-            
-            // Fire Confetti
+            document.getElementById('yesBtn').innerHTML = "I Knew It! 🥰";
+            document.getElementById('yesBtn').style.transform = "scale(1.2)";
+
             confetti({
                 particleCount: 150,
                 spread: 70,
