@@ -26,34 +26,46 @@
 
         #container {
             background: white;
-            padding: 2.5rem;
+            padding: 2rem;
             border-radius: 30px;
             box-shadow: 0 15px 35px rgba(241, 167, 180, 0.4);
             z-index: 10;
             width: 320px;
-            position: relative;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
         h1 {
             color: var(--deep-rose);
-            font-size: 1.6rem;
-            margin-bottom: 20px;
+            font-size: 1.5rem;
+            margin: 20px 0;
         }
 
-        #gif-container img {
-            width: 100%;
-            height: 200px;
-            object-fit: contain;
+        /* Image styling */
+        .image-display {
+            font-size: 80px; /* Big Emojis as fail-safe backup */
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #mainGif {
+            max-width: 200px;
             border-radius: 15px;
-            margin-bottom: 20px;
         }
 
         .buttons {
             display: flex;
-            justify-content: center;
             gap: 20px;
-            height: 50px;
+            margin-top: 20px;
             position: relative;
+            width: 100%;
+            justify-content: center;
+            height: 50px;
         }
 
         button {
@@ -63,30 +75,27 @@
             border: none;
             border-radius: 50px;
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: 0.2s;
         }
 
         #yesBtn {
             background-color: var(--peony-pink);
             color: white;
-            position: relative;
-            z-index: 10;
         }
 
         #noBtn {
             background-color: #f0f0f0;
             color: #888;
             position: absolute;
-            left: 175px; /* Positioned to the right of Yes */
-            z-index: 5;
+            right: 20px; /* Start on the right side */
         }
     </style>
 </head>
 <body>
 
     <div id="container">
-        <div id="gif-container">
-            <img id="mainGif" src="https://media.tenor.com/cyGL_Y6OT88AAAAi/cute-sad.gif" alt="Please">
+        <div class="image-display" id="imageHolder">
+            <img id="mainGif" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHYybm9pZHFueXN4bm9pZHFueXN4bm9pZHFueXN4bm9pZHFueXN4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/qUIm5wu6LAAog/giphy.gif" onerror="this.src='https://media.tenor.com/cyGL_Y6OT88AAAAi/cute-sad.gif'">
         </div>
         <h1 id="questionText">Will you be my Valentine?</h1>
         
@@ -102,26 +111,24 @@
         const noBtn = document.getElementById('noBtn');
         const mainGif = document.getElementById('mainGif');
         const questionText = document.getElementById('questionText');
+        const imageHolder = document.getElementById('imageHolder');
 
         function moveButton() {
-            // Jumps the button to a random spot on the whole screen
+            // Jump anywhere on screen
             const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
             const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
             
-            noBtn.style.position = 'fixed'; 
+            noBtn.style.position = 'fixed';
             noBtn.style.left = `${x}px`;
             noBtn.style.top = `${y}px`;
         }
 
         function celebrate() {
-            // Celebration GIF from Tenor
+            // Switch to a very reliable celebration image link
             mainGif.src = "https://media.tenor.com/9n_l95xW4vAAAAAi/love-joy.gif";
-            questionText.innerHTML = "Yay! See you on the 14th! ❤️";
-            
+            questionText.innerHTML = "Yay! Happy Valentine's Day! ❤️";
             noBtn.style.display = 'none';
-            document.getElementById('yesBtn').innerHTML = "I Knew It! 🥰";
-            document.getElementById('yesBtn').style.transform = "scale(1.2)";
-
+            
             confetti({
                 particleCount: 150,
                 spread: 70,
